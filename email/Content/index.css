@@ -1,0 +1,31 @@
+﻿body {
+}
+.loginpage {
+    padding-top:130px;
+    padding-left:490px;
+   
+}
+.maincard {
+    padding-left:60px;
+    padding-right:60px;
+    padding-bottom:60px;
+    background-color:#001d21ad;
+     border-radius: 35px;
+    
+}
+.mainpage {
+
+    background-image: url('images/pic1.jpg');
+    height: 650px;
+    background-position: center;
+}
+.logomail {
+    margin-left:35px;
+    margin-top:20px;
+    margin-bottom:20px;
+
+}
+.button_1 {
+    background-color:#10507f;
+}
+    

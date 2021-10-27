@@ -1,0 +1,168 @@
+﻿@model IEnumerable<email.Models.Mail>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Html.RenderPartial("Header_Layout");
+}
+@*<------------sidebar------>*@
+@{
+    Html.RenderPartial("Side_Layout");
+}
+@*<------------End ofsidebar------>*@
+
+@*<-- Content Wrapper -->*@
+<div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Topbar -->
+        @{
+            Html.RenderPartial("Topbar_Layout");
+         }
+        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                </a>
+            </div>
+            <!-- Content Row -->
+            <div class="row">
+                <!-- Area Chart -->
+                <div class="col-xl-4
+                     3. col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Create Source</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie">
+                                @*<form action="@Url.Action("mailSend")" method="post">*@
+                                <div class="form-group">
+                                    <label>Group Name</label>
+                                    <input id="mailName" type="text" placeholder="Name" Class="form-control" />
+                                    <input type="hidden" id="idhidden" />
+                                </div>
+                                <button type="button" class="btn btn-primary saveEvents" id="onclickevent">Submit</button>
+                                <button type="button" class="btn btn-secondary updateMail" id="update_mail">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pie Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Source List</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area pt-4 pb-2">
+                                <div class="container">
+                                    <table class="table" id="eventTable">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Import ID</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tbody>
+                                            @foreach (var item in Model)
+            {
+                                                <tr>
+                                                    <td> @Html.DisplayFor(modelItem => item.id)</td>
+                                                    <td> @Html.DisplayFor(modelItem => item.name)</td>
+                                                    <td><a id="editname" data-id="@Html.DisplayFor(modelItem => item.id)" data-name="@Html.DisplayFor(modelItem => item.name)"><i class="bi bi-pencil-square"></i></a>/<a href="@Url.Action("Delete_Event", new {id = item.id})"><i class="bi bi-trash"></i></a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        </div>
+                    </div>
+        </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script>
+                $(document).ready(function () {
+
+                    $(".saveEvents").on('click', function () {
+
+                        let mailName = $("#mailName").val()
+                        console.log('mailName', mailName)
+                        $.ajax({
+                            type: "POST",
+                            url: "mailSend",
+                            data: {
+                                name: mailName,
+                            },
+                            success: function (resp) {
+                                location.href = "/Admin/Sourcelist"
+                                console.log('Response', resp)
+                                alert("Good Job!", "You cliked the buttin!", "success").then(function () {
+                                    location.reload()
+                                })
+                            },
+                            dataType: "json"
+                        });
+                    })
+                    //edit form
+                    $("#eventTable").on('click', '#editname', function () {
+                        let id = $(this).attr("data-id");
+                        let name = $(this).attr("data-name")
+
+                        $("#idhidden").val(id)
+                           $("#mailName").val(name)
+
+                        $(".updateMail").show()
+                        $(".saveEvents").hide()
+                        console.log('click', id, name)
+                    })
+
+                    //update_event
+        $("#update_mail").on('click', function () {
+            let groupname = $("#mailName").val()
+            let id = $("#idhidden").val()
+            console.log('update_mail', mailName, id);
+
+            var obj = {};
+            obj.name = groupname;
+            obj.id = id;
+            console.log(obj);
+            console.log(JSON.stringify(obj));
+
+            $.ajax({
+                type: "POST",
+                // url: "updateEvent",
+                url: '@Url.Action("updateGroupname")',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: '{mail: ' + JSON.stringify(obj) + '}',
+                success: function (response) {
+                    console.log(response, 'response');
+                    location.reload()
+                },
+            })
+        })
+
+                })
+
+            </script>
+
+
+
+
+

@@ -1,0 +1,110 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Html.RenderPartial("Header_Layout");
+}
+@*<------------sidebar------>*@
+@{
+    Html.RenderPartial("Side_Layout");
+}
+@*<------------End ofsidebar------>*@
+
+@*<-- Content Wrapper -->*@
+<div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Topbar -->
+        @{
+            Html.RenderPartial("Topbar_Layout");
+        }
+        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                </a>
+            </div>
+            <!-- Content Row -->
+            <div class="row">
+                <!-- Area Chart -->
+                <div class="col-xl-4
+                     3. col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Create User</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie">
+                                @*<form action="@Url.Action("mailSend")" method="post">*@
+                                <div class="form-group">
+                                    <input type="hidden" id="idhidden" />
+                                    <label for="exampleFormControlSelect1">Source</label>
+                                    <select class="form-control" id="souceName" Class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+
+                                    <label>User Email</label>
+                                    <input id="userEmail" type="text" Class="form-control" />
+
+                                    <label>User Name</label>
+                                    <input id="userName" type="text" Class="form-control" />
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary saveEvents" id="onclickevent">Submit</button>
+                                <button type="button" class="btn btn-secondary updateMail" id="update_mail">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pie Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Source List</h6>
+                        </div>
+                    
+                        <div class="card-body">
+                            <div class="chart-area pt-4 pb-2">
+                                <div class="container">
+                                    <table class="table" id="eventTable">
+                                        <tr>
+                                            <th>Source Name</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        @*<tbody>
+                                            @foreach (var item in Model)
+            {
+                                                <tr>
+                                                    <td> @Html.DisplayFor(modelItem => item.id)</td>
+                                                    <td> @Html.DisplayFor(modelItem => item.name)</td>
+                                                    <td><a id="editname" data-id="@Html.DisplayFor(modelItem => item.id)" data-name="@Html.DisplayFor(modelItem => item.name)"><i class="bi bi-pencil-square"></i></a>/<a href="@Url.Action("Delete_Event", new {id = item.id})"><i class="bi bi-trash"></i></a></td>
+                                                </tr>
+                                            }
+                                        </tbody>*@
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
